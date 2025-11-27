@@ -1,0 +1,1330 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>青神久至臻网络科技有限公司 - 创新科技解决方案提供商</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #0065a3;
+            --primary-light: #4a9ed8;
+            --secondary-color: #00487a;
+            --accent-color: #f0a830;
+            --text-color: #2c3e50;
+            --light-text: #7f8c8d;
+            --background-color: #f8f9fa;
+            --card-bg: #ffffff;
+            --success-color: #28a745;
+            --transition: all 0.3s ease;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--text-color);
+            background-color: var(--background-color);
+            line-height: 1.6;
+        }
+        
+        /* 导航栏样式 */
+        .navbar {
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(5px);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 1rem 0;
+            transition: var(--transition);
+        }
+        
+        .navbar.navbar-scrolled {
+            padding: 0.5rem 0;
+            box-shadow: 0 4px 15px rgba(0, 101, 163, 0.2);
+        }
+        
+        .navbar-brand {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            transition: all 0.3s ease;
+        }
+        
+        .navbar.navbar-scrolled .navbar-brand {
+            font-size: 1.3rem;
+        }
+        
+        .navbar-brand span {
+            color: var(--secondary-color);
+        }
+        
+        .nav-link {
+            color: var(--text-color);
+            font-weight: 500;
+            margin: 0 0.5rem;
+            transition: var(--transition);
+            position: relative;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 50%;
+            background-color: var(--primary-color);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+        
+        .nav-link:hover::after,
+        .nav-link.active::after,
+        .nav-link.nav-link-hover::after {
+            width: 80%;
+        }
+        
+        .nav-link:hover,
+        .nav-link.active,
+        .nav-link.nav-link-hover {
+            color: var(--primary-color);
+        }
+        
+        /* 滚动动画类 */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .slide-in {
+            opacity: 0;
+            transform: translateX(-30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        
+        .slide-in.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        .scale-in {
+            opacity: 0;
+            transform: scale(0.95);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        
+        .scale-in.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+        
+        /* 表单焦点样式 */
+        .form-group {
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .form-group.has-focus {
+            transform: translateY(-5px);
+        }
+        
+        .form-control:focus {
+            box-shadow: 0 0 0 0.2rem rgba(0, 102, 204, 0.25);
+        }
+        
+        /* 首屏区域 */
+        #hero {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            padding: 8rem 0 6rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        #hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100" preserveAspectRatio="none"%3E%3Cpath d="M0,0 L100,0 L100,100 L0,100 Z" fill="rgba(255,255,255,0.05)"/%3E%3C/svg%3E');
+            opacity: 0.3;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .hero-content h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+        
+        .hero-content p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+        
+        .btn-primary {
+            background-color: white;
+            color: var(--primary-color);
+            border: none;
+            padding: 0.75rem 2rem;
+            font-weight: 600;
+            border-radius: 50px;
+            transition: var(--transition);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: all 0.6s ease;
+        }
+        
+        .btn-primary:hover::before {
+            left: 100%;
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--accent-color);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* 公司简介 */
+        #about {
+            padding: 5rem 0;
+            background-color: white;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 4rem;
+            position: relative;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+        }
+        
+        .about-content {
+            display: flex;
+            align-items: center;
+        }
+        
+        .about-text {
+            padding: 0 2rem;
+        }
+        
+        .about-text h3 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--secondary-color);
+            margin-bottom: 1.5rem;
+        }
+        
+        .about-text p {
+            margin-bottom: 1.2rem;
+            color: var(--light-text);
+        }
+        
+        .about-img {
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        .about-img img {
+            width: 100%;
+            height: auto;
+            transition: var(--transition);
+        }
+        
+        .about-img:hover img {
+            transform: scale(1.05);
+        }
+        
+        /* 计数器 */
+        .counter-section {
+            background: linear-gradient(135deg, var(--secondary-color) 0%, var(--primary-color) 100%);
+            color: white;
+            padding: 3rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .counter-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100" preserveAspectRatio="none"%3E%3Cpath d="M0,0 L100,0 L100,100 L0,100 Z" fill="rgba(255,255,255,0.05)"/%3E%3C/svg%3E');
+            opacity: 0.5;
+        }
+        
+        .counter-item {
+            text-align: center;
+            padding: 1rem;
+        }
+        
+        .counter-item i {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            opacity: 0.8;
+        }
+        
+        .counter-item .counter {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        
+        .counter-item p {
+            font-size: 1rem;
+            opacity: 0.8;
+            margin: 0;
+        }
+        
+        /* 页脚 */
+        footer {
+            background: linear-gradient(135deg, #2c3e50 0%, var(--secondary-color) 100%);
+            color: white;
+            padding: 3rem 0 1rem;
+            position: relative;
+        }
+        
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+        }
+        
+        .footer-content {
+            margin-bottom: 2rem;
+        }
+        
+        .footer-logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+        
+        .footer-text {
+            margin-bottom: 1.5rem;
+            opacity: 0.8;
+        }
+        
+        .footer-social a {
+            color: white;
+            font-size: 1.2rem;
+            margin-right: 1rem;
+            transition: var(--transition);
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .footer-social a:hover {
+            color: white;
+            background-color: var(--primary-color);
+            transform: translateY(-3px);
+        }
+        
+        .footer-links h4 {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-links h4::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background-color: var(--accent-color);
+        }
+        
+        .footer-links ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            opacity: 0.8;
+            transition: var(--transition);
+        }
+        
+        .footer-links a:hover {
+            opacity: 1;
+            color: var(--accent-color);
+            padding-left: 5px;
+        }
+        
+        .footer-contact h4 {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-contact h4::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background-color: var(--accent-color);
+        }
+        
+        .footer-contact-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+        
+        .footer-contact-item i {
+            margin-right: 1rem;
+            font-size: 1.2rem;
+            color: var(--accent-color);
+            opacity: 0.9;
+            min-width: 20px;
+        }
+        
+        .footer-contact-item p {
+            margin: 0;
+            opacity: 0.8;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            opacity: 0.7;
+            font-size: 0.9rem;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 992px) {
+            /* 首屏区域 */
+            .hero-content h1 {
+                font-size: 2.8rem;
+            }
+            
+            .hero-content p {
+                font-size: 1.1rem;
+            }
+            
+            /* 公司简介 */
+            .about-content {
+                flex-direction: column;
+            }
+            
+            .about-text {
+                padding: 0;
+                margin-bottom: 2rem;
+            }
+            
+            /* 产品服务 */
+            .service-card {
+                margin-bottom: 2rem;
+            }
+            
+            /* 关于我们 */
+            #about-us .row {
+                flex-direction: column;
+            }
+            
+            /* 联系我们 */
+            #contact .row {
+                flex-direction: column;
+            }
+            
+            #contact .col-lg-6 {
+                margin-bottom: 2rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            /* 导航栏 */
+            .navbar-brand {
+                font-size: 1.3rem;
+            }
+            
+            .navbar-nav {
+                text-align: center;
+            }
+            
+            .nav-link {
+                margin: 0.5rem 0;
+            }
+            
+            /* 首屏区域 */
+            #hero {
+                padding: 6rem 0 4rem;
+            }
+            
+            .hero-content h1 {
+                font-size: 2.2rem;
+            }
+            
+            .hero-content p {
+                font-size: 1rem;
+            }
+            
+            /* 计数器 */
+            .counter-section {
+                padding: 2rem 0;
+            }
+            
+            .counter-item {
+                margin-bottom: 1.5rem;
+            }
+            
+            .counter-item .counter {
+                font-size: 2.5rem;
+            }
+            
+            /* 团队展示 */
+            .team-member {
+                margin-bottom: 2rem;
+            }
+            
+            /* 页脚 */
+            .footer-content .col-lg-4 {
+                margin-bottom: 2rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            /* 首屏区域 */
+            .hero-content h1 {
+                font-size: 1.8rem;
+            }
+            
+            .btn-primary {
+                padding: 0.6rem 1.5rem;
+                font-size: 0.9rem;
+            }
+            
+            /* 区块标题 */
+            .section-title h2 {
+                font-size: 2rem;
+            }
+            
+            /* 产品服务 */
+            .service-icon i {
+                font-size: 2rem;
+            }
+            
+            .service-card h3 {
+                font-size: 1.4rem;
+            }
+            
+            /* 关于我们 */
+            #about-us h3 {
+                font-size: 1.6rem;
+            }
+            
+            /* 联系我们 */
+            .contact-form,
+            #contact .bg-white {
+                padding: 1.5rem;
+            }
+            
+            .map {
+                height: 40vh;
+            }
+            
+            /* 页脚 */
+            .footer-logo {
+                font-size: 1.5rem;
+            }
+        }
+
+        /* 新增：通用工具类（兼容页面中使用的类） */
+        .rounded-lg { border-radius: 0.75rem !important; }
+        .rounded-full { border-radius: 9999px !important; }
+        .p-6 { padding: 1.5rem !important; }
+        .p-8 { padding: 2rem !important; }
+        .py-16 { padding-top: 4rem !important; padding-bottom: 4rem !important; }
+        .mb-6 { margin-bottom: 1.5rem !important; }
+        .mb-8 { margin-bottom: 2rem !important; }
+        .mb-12 { margin-bottom: 3rem !important; }
+        .mr-3 { margin-right: 0.75rem !important; }
+        .mr-4 { margin-right: 1rem !important; }
+        .w-full { width: 100% !important; }
+        .h-full { height: 100% !important; }
+        .h-64 { height: 16rem !important; }
+        .flex { display: flex !important; }
+        .items-start { align-items: flex-start !important; }
+        .block { display: block !important; }
+        .text-2xl { font-size: 1.5rem; line-height: 2rem; }
+        .text-lg { font-size: 1.125rem; line-height: 1.75rem; }
+        .font-bold { font-weight: 700 !important; }
+        .text-gray-600 { color: #6b7280 !important; }
+        .text-gray-700 { color: #374151 !important; }
+        .hidden { display: none !important; }
+        .bg-primary\/10 { background-color: rgba(0, 101, 163, 0.1) !important; } /* 兼容 class="bg-primary/10" */
+        .transition-all { transition: all 0.3s ease !important; }
+
+        /* 新增：发展历程（时间线）样式 */
+        .timeline {
+            position: relative;
+            padding-left: 1.75rem;
+        }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 7px;
+            width: 2px;
+            background: linear-gradient(180deg, var(--accent-color), var(--primary-light));
+            opacity: 0.6;
+        }
+        .timeline-item {
+            position: relative;
+            padding-left: 1rem;
+        }
+        .timeline-item + .timeline-item {
+            margin-top: 1rem;
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -1px;
+            top: 6px;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: var(--card-bg);
+            border: 3px solid var(--accent-color);
+            box-shadow: 0 0 0 3px rgba(240, 168, 48, 0.15);
+        }
+        .timeline-date {
+            color: var(--secondary-color);
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+        .timeline-content {
+            color: var(--light-text);
+            background: #f9fafb;
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            border-left: 3px solid var(--primary-light);
+        }
+
+        /* 新增：发送消息（表单）细节优化 */
+        .contact-form {
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        .contact-form .form-control {
+            border-radius: 0.5rem;
+            border-color: #e5e7eb;
+        }
+        .contact-form .form-control:focus {
+            border-color: var(--primary-light);
+            box-shadow: 0 0 0 0.2rem rgba(0, 101, 163, 0.15);
+        }
+        .contact-form .btn {
+            border-radius: 0.65rem;
+        }
+
+        /* 新增：联系方式（信息卡片与图标） */
+        .contact-item { align-items: flex-start; }
+        .contact-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 42px;
+            min-height: 42px;
+            border-radius: 9999px;
+            background-color: rgba(0, 101, 163, 0.1);
+            color: var(--primary-color);
+        }
+        .contact-item h4 {
+            margin-bottom: 0.25rem;
+        }
+        .contact-item p {
+            margin: 0;
+            color: var(--light-text);
+        }
+
+        /* 新增：地图默认高度（移动端覆盖保留） */
+        .map { height: 16rem; }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                青神久至<span>臻</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#home">首页</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about">关于我们</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#services">产品服务</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#portfolio">案例展示</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">联系我们</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 首屏区域 -->
+    <section id="hero" class="pt-20">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 hero-content">
+                    <h1>青神久至臻网络科技</h1>
+                    <p>专注于提供创新的网络科技解决方案，助力企业数字化转型，打造高效、智能的业务生态系统。</p>
+                    <a href="#contact" class="btn btn-primary">联系我们</a>
+                </div>
+                <div class="col-lg-6">
+                    <img src="https://picsum.photos/id/1/600/400" alt="科技创新" class="img-fluid rounded-lg shadow-lg">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 公司简介 -->
+    <section id="about">
+        <div class="container">
+            <div class="section-title">
+                <h2>关于我们</h2>
+            </div>
+            <div class="row about-content">
+                <div class="col-lg-6 about-text">
+                    <h3>青神久至臻网络科技有限公司</h3>
+                    <p>青神久至臻网络科技有限公司（简称：青神久至）成立于四川省眉山市青神县，是一家专注于网络技术研发、应用及服务的创新型科技企业。</p>
+                    <p>公司秉承"科技创新，服务至上"的经营理念，致力于为客户提供专业的网络技术解决方案，包括网站开发、移动应用开发、系统集成、数字化营销等全方位服务。</p>
+                    <p>我们拥有一支高素质、专业化的技术团队，核心成员均具备多年行业经验，能够为客户提供从需求分析、方案设计到系统实施、运维支持的全流程服务。</p>
+                </div>
+                <div class="col-lg-6 about-img">
+                    <img src="https://picsum.photos/id/2/600/400" alt="公司环境" class="img-fluid">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 产品服务 -->
+    <section id="services" class="py-16 bg-light">
+        <div class="container">
+            <div class="section-title">
+                <h2>产品服务</h2>
+            </div>
+            <div class="row">
+                <div class="col-lg-4 col-md-6 mb-6">
+                    <div class="card h-100 shadow-lg border-0 rounded-lg transition-all duration-300 hover:shadow-xl hover:-translate-y-2">
+                        <div class="card-body p-6">
+                            <div class="service-icon text-primary mb-4">
+                                <i class="fas fa-globe fa-3x"></i>
+                            </div>
+                            <h3 class="card-title text-xl font-bold mb-3">网站建设</h3>
+                            <p class="card-text text-gray-600">专业的网站设计与开发服务，包括企业官网、电商平台、响应式网站等，为您打造符合品牌形象的线上展示窗口。</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-6">
+                    <div class="card h-100 shadow-lg border-0 rounded-lg transition-all duration-300 hover:shadow-xl hover:-translate-y-2">
+                        <div class="card-body p-6">
+                            <div class="service-icon text-primary mb-4">
+                                <i class="fas fa-mobile-alt fa-3x"></i>
+                            </div>
+                            <h3 class="card-title text-xl font-bold mb-3">移动应用开发</h3>
+                            <p class="card-text text-gray-600">定制化的iOS和Android应用开发服务，为企业提供功能丰富、用户友好的移动解决方案，提升用户体验和品牌价值。</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-6">
+                    <div class="card h-100 shadow-lg border-0 rounded-lg transition-all duration-300 hover:shadow-xl hover:-translate-y-2">
+                        <div class="card-body p-6">
+                            <div class="service-icon text-primary mb-4">
+                                <i class="fas fa-cloud fa-3x"></i>
+                            </div>
+                            <h3 class="card-title text-xl font-bold mb-3">云服务解决方案</h3>
+                            <p class="card-text text-gray-600">提供云服务器部署、云存储、云计算等服务，帮助企业降低IT成本，提高数据安全性和系统可靠性。</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-6">
+                    <div class="card h-100 shadow-lg border-0 rounded-lg transition-all duration-300 hover:shadow-xl hover:-translate-y-2">
+                        <div class="card-body p-6">
+                            <div class="service-icon text-primary mb-4">
+                                <i class="fas fa-search fa-3x"></i>
+                            </div>
+                            <h3 class="card-title text-xl font-bold mb-3">SEO优化服务</h3>
+                            <p class="card-text text-gray-600">专业的搜索引擎优化服务，提升网站在搜索引擎中的排名，增加网站流量和品牌知名度，实现精准获客。</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-6">
+                    <div class="card h-100 shadow-lg border-0 rounded-lg transition-all duration-300 hover:shadow-xl hover:-translate-y-2">
+                        <div class="card-body p-6">
+                            <div class="service-icon text-primary mb-4">
+                                <i class="fas fa-shopping-cart fa-3x"></i>
+                            </div>
+                            <h3 class="card-title text-xl font-bold mb-3">电商平台搭建</h3>
+                            <p class="card-text text-gray-600">定制化电商平台开发，包括商品管理、订单处理、支付系统集成等功能，助力企业快速开展线上业务。</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-6">
+                    <div class="card h-100 shadow-lg border-0 rounded-lg transition-all duration-300 hover:shadow-xl hover:-translate-y-2">
+                        <div class="card-body p-6">
+                            <div class="service-icon text-primary mb-4">
+                                <i class="fas fa-shield-alt fa-3x"></i>
+                            </div>
+                            <h3 class="card-title text-xl font-bold mb-3">网络安全服务</h3>
+                            <p class="card-text text-gray-600">提供网站安全防护、数据加密、漏洞扫描等服务，保障企业网络和数据安全，防范各类网络威胁。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 计数器 -->
+    <section class="counter-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-6 counter-item">
+                    <i class="fas fa-users"></i>
+                    <div class="counter">100+</div>
+                    <p>客户数量</p>
+                </div>
+                <div class="col-lg-3 col-md-6 counter-item">
+                    <i class="fas fa-laptop-code"></i>
+                    <div class="counter">200+</div>
+                    <p>成功项目</p>
+                </div>
+                <div class="col-lg-3 col-md-6 counter-item">
+                    <i class="fas fa-star"></i>
+                    <div class="counter">98%</div>
+                    <p>客户满意度</p>
+                </div>
+                <div class="col-lg-3 col-md-6 counter-item">
+                    <i class="fas fa-trophy"></i>
+                    <div class="counter">15+</div>
+                    <p>行业奖项</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 关于我们详细内容 -->
+    <section id="about-us" class="py-16 bg-white">
+        <div class="container">
+            <div class="section-title">
+                <h2>走进青神久至</h2>
+            </div>
+            
+            <div class="row mb-12">
+                <div class="col-lg-6">
+                    <h3 class="text-2xl font-bold mb-4 text-primary">我们的使命</h3>
+                    <p class="mb-4 text-gray-700">通过创新的网络技术，为企业提供全方位的数字化解决方案，助力企业实现转型升级，创造更大的商业价值。</p>
+                    
+                    <h3 class="text-2xl font-bold mb-4 text-primary">我们的愿景</h3>
+                    <p class="mb-4 text-gray-700">成为西南地区领先的网络科技服务提供商，以技术创新和优质服务推动区域数字化经济发展。</p>
+                    
+                    <h3 class="text-2xl font-bold mb-4 text-primary">核心价值观</h3>
+                    <ul class="list-unstyled">
+                        <li class="mb-3 flex items-center">
+                            <i class="fas fa-check-circle text-success mr-3"></i>
+                            <span>创新为本：不断探索新技术，提供创新解决方案</span>
+                        </li>
+                        <li class="mb-3 flex items-center">
+                            <i class="fas fa-check-circle text-success mr-3"></i>
+                            <span>客户至上：以客户需求为中心，提供优质服务</span>
+                        </li>
+                        <li class="mb-3 flex items-center">
+                            <i class="fas fa-check-circle text-success mr-3"></i>
+                            <span>团队协作：汇聚智慧，共同成长</span>
+                        </li>
+                        <li class="mb-3 flex items-center">
+                            <i class="fas fa-check-circle text-success mr-3"></i>
+                            <span>诚信负责：坚守职业道德，对客户和社会负责</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-lg-6">
+                    <div class="bg-light p-6 rounded-lg shadow-lg">
+                        <h3 class="text-2xl font-bold mb-6 text-primary">发展历程</h3>
+                        <div class="timeline">
+                            <div class="timeline-item mb-6">
+                                <div class="timeline-date font-bold text-primary">2020年</div>
+                                <div class="timeline-content">公司成立，专注于网站开发和网络服务</div>
+                            </div>
+                            <div class="timeline-item mb-6">
+                                <div class="timeline-date font-bold text-primary">2021年</div>
+                                <div class="timeline-content">扩大业务范围，开始提供移动应用开发服务</div>
+                            </div>
+                            <div class="timeline-item mb-6">
+                                <div class="timeline-date font-bold text-primary">2022年</div>
+                                <div class="timeline-content">获得行业认证，成为西南地区知名的科技服务提供商</div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-date font-bold text-primary">2023年</div>
+                                <div class="timeline-content">持续创新，推出云服务和数字化营销解决方案</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 团队展示 -->
+            <div class="row">
+                <div class="col-12 mb-8">
+                    <h3 class="text-2xl font-bold text-center text-primary">专业团队</h3>
+                    <p class="text-center text-gray-600">我们拥有一支高素质、专业化的技术团队，为客户提供优质服务</p>
+                </div>
+                
+                <div class="col-lg-3 col-md-6 mb-6">
+                    <div class="team-member text-center">
+                        <div class="team-img mb-4 overflow-hidden rounded-lg">
+                            <img src="https://picsum.photos/id/1005/300/300" alt="团队成员" class="w-100 h-auto transition-transform duration-300 hover:scale-110">
+                        </div>
+                        <h4 class="font-bold text-lg">张明</h4>
+                        <p class="text-primary">技术总监</p>
+                        <p class="text-gray-600 text-sm">10年互联网行业经验，曾任职于知名科技企业</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-6">
+                    <div class="team-member text-center">
+                        <div class="team-img mb-4 overflow-hidden rounded-lg">
+                            <img src="https://picsum.photos/id/1006/300/300" alt="团队成员" class="w-100 h-auto transition-transform duration-300 hover:scale-110">
+                        </div>
+                        <h4 class="font-bold text-lg">李婷</h4>
+                        <p class="text-primary">产品经理</p>
+                        <p class="text-gray-600 text-sm">8年产品设计经验，专注于用户体验和产品创新</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-6">
+                    <div class="team-member text-center">
+                        <div class="team-img mb-4 overflow-hidden rounded-lg">
+                            <img src="https://picsum.photos/id/1012/300/300" alt="团队成员" class="w-100 h-auto transition-transform duration-300 hover:scale-110">
+                        </div>
+                        <h4 class="font-bold text-lg">王强</h4>
+                        <p class="text-primary">前端开发工程师</p>
+                        <p class="text-gray-600 text-sm">精通各种前端技术，致力于创造优秀的用户界面</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-6">
+                    <div class="team-member text-center">
+                        <div class="team-img mb-4 overflow-hidden rounded-lg">
+                            <img src="https://picsum.photos/id/1027/300/300" alt="团队成员" class="w-100 h-auto transition-transform duration-300 hover:scale-110">
+                        </div>
+                        <h4 class="font-bold text-lg">陈琳</h4>
+                        <p class="text-primary">UI设计师</p>
+                        <p class="text-gray-600 text-sm">擅长品牌设计和用户界面设计，拥有独特的设计理念</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 联系我们 -->
+    <section id="contact" class="py-16 bg-light">
+        <div class="container">
+            <div class="section-title">
+                <h2>联系我们</h2>
+            </div>
+            
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="contact-form bg-white p-8 rounded-lg shadow-lg">
+                        <h3 class="text-2xl font-bold mb-6 text-primary">发送消息</h3>
+                        <form id="contactForm">
+                            <div class="mb-4">
+                                <label for="name" class="block text-gray-700 mb-2">您的姓名</label>
+                                <input type="text" id="name" class="form-control w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all" placeholder="请输入您的姓名" required>
+                            </div>
+                            
+                            <div class="mb-4">
+                                <label for="email" class="block text-gray-700 mb-2">电子邮箱</label>
+                                <input type="email" id="email" class="form-control w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all" placeholder="请输入您的电子邮箱" required>
+                            </div>
+                            
+                            <div class="mb-4">
+                                <label for="subject" class="block text-gray-700 mb-2">主题</label>
+                                <input type="text" id="subject" class="form-control w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all" placeholder="请输入消息主题" required>
+                            </div>
+                            
+                            <div class="mb-6">
+                                <label for="message" class="block text-gray-700 mb-2">您的消息</label>
+                                <textarea id="message" rows="5" class="form-control w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all" placeholder="请输入您的消息内容" required></textarea>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary w-full py-3 px-6 font-bold rounded-lg transition-all hover:bg-secondary hover:shadow-lg">
+                                发送消息
+                            </button>
+                        </form>
+                        <div id="formResponse" class="mt-4 text-center hidden"></div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-6">
+                    <div class="bg-white p-8 rounded-lg shadow-lg h-full">
+                        <h3 class="text-2xl font-bold mb-6 text-primary">联系方式</h3>
+                        
+                        <div class="contact-info mb-8">
+                            <div class="contact-item flex items-start mb-5">
+                                <div class="contact-icon bg-primary/10 p-3 rounded-full text-primary mr-4">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold mb-1">公司地址</h4>
+                                    <p class="text-gray-600">四川省眉山市青神县青竹街道建设路93-50号</p>
+                                </div>
+                            </div>
+                            
+                            <div class="contact-item flex items-start mb-5">
+                                <div class="contact-icon bg-primary/10 p-3 rounded-full text-primary mr-4">
+                                    <i class="fas fa-envelope"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold mb-1">电子邮箱</h4>
+                                    <p class="text-gray-600">jiuzhizhen@qingshenjiuzhizhen.asia</p>
+                                </div>
+                            </div>
+                            
+                            <div class="contact-item flex items-start mb-5">
+                                <div class="contact-icon bg-primary/10 p-3 rounded-full text-primary mr-4">
+                                    <i class="fas fa-phone"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold mb-1">联系电话</h4>
+                                    <p class="text-gray-600">15220639420</p>
+                                </div>
+                            </div>
+                            
+                            <div class="contact-item flex items-start">
+                                <div class="contact-icon bg-primary/10 p-3 rounded-full text-primary mr-4">
+                                    <i class="fas fa-clock"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold mb-1">工作时间</h4>
+                                    <p class="text-gray-600">周一至周五: 9:00 - 18:00</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 地图占位 -->
+                        <div class="map rounded-lg overflow-hidden h-64 bg-gray-200">
+                            <img src="https://picsum.photos/id/1031/600/400" alt="公司地图" class="w-full h-full object-cover">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer>
+        <div class="container">
+            <div class="row footer-content">
+                <div class="col-lg-4">
+                    <div class="footer-logo">青神久至臻网络科技</div>
+                    <p class="footer-text">专注于网络技术创新，为企业提供全方位数字化解决方案，助力企业实现可持续发展。</p>
+                    <div class="footer-social">
+                        <a href="#"><i class="fab fa-weixin"></i></a>
+                        <a href="#"><i class="fab fa-weibo"></i></a>
+                        <a href="#"><i class="fab fa-qq"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="footer-links">
+                        <h4>快速链接</h4>
+                        <ul>
+                            <li><a href="#home">首页</a></li>
+                            <li><a href="#about">关于我们</a></li>
+                            <li><a href="#services">产品服务</a></li>
+                            <li><a href="#portfolio">案例展示</a></li>
+                            <li><a href="#contact">联系我们</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="footer-contact">
+                        <h4>联系我们</h4>
+                        <div class="footer-contact-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <p>四川省眉山市青神县青竹街道建设路93-50号</p>
+                        </div>
+                        <div class="footer-contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <p>jiuzhizhen@qingshenjiuzhizhen.asia</p>
+                        </div>
+                        <div class="footer-contact-item">
+                            <i class="fas fa-phone"></i>
+                            <p>15220639420</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 青神久至臻网络科技有限公司. 保留所有权利.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // 页面加载动画
+        window.addEventListener('load', function() {
+            // 初始检查所有元素的可见性
+            checkVisibility();
+        });
+        
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    window.scrollTo({
+                        top: target.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // 关闭移动设备上的菜单
+                    const menu = document.getElementById('navbarNav');
+                    if (menu.classList.contains('show')) {
+                        menu.classList.remove('show');
+                    }
+                }
+            });
+        });
+        
+        // 表单验证和提交动画
+        const contactForm = document.getElementById('contactForm');
+        if (contactForm) {
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const name = document.getElementById('name').value;
+                const email = document.getElementById('email').value;
+                const subject = document.getElementById('subject').value;
+                const message = document.getElementById('message').value;
+                const submitBtn = document.querySelector('button[type="submit"]');
+                
+                // 添加表单提交前的视觉反馈
+                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> 提交中...';
+                submitBtn.disabled = true;
+                
+                if (!name || !email || !message) {
+                    setTimeout(() => {
+                        alert('请填写所有必填字段！');
+                        submitBtn.innerHTML = '发送消息';
+                        submitBtn.disabled = false;
+                    }, 300);
+                    return;
+                }
+                
+                // 简单的邮箱验证
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(email)) {
+                    setTimeout(() => {
+                        alert('请输入有效的电子邮箱！');
+                        submitBtn.innerHTML = '发送消息';
+                        submitBtn.disabled = false;
+                    }, 300);
+                    return;
+                }
+                
+                // 模拟表单提交
+                setTimeout(() => {
+                    alert('表单提交成功！我们将尽快与您联系。');
+                    contactForm.reset();
+                    submitBtn.innerHTML = '发送消息';
+                    submitBtn.disabled = false;
+                }, 1000);
+            });
+            
+            // 输入字段焦点效果
+            const inputFields = contactForm.querySelectorAll('input, textarea');
+            inputFields.forEach(field => {
+                field.addEventListener('focus', function() {
+                    this.parentElement.classList.add('has-focus');
+                });
+                field.addEventListener('blur', function() {
+                    this.parentElement.classList.remove('has-focus');
+                });
+            });
+        }
+        
+        // 滚动监听，实现导航栏背景变化和滚动动画
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('shadow-lg');
+                navbar.classList.add('navbar-scrolled');
+            } else {
+                navbar.classList.remove('shadow-lg');
+                navbar.classList.remove('navbar-scrolled');
+            }
+            
+            // 检查元素是否进入视口，添加动画
+            checkVisibility();
+        });
+        
+        // 检查元素是否在视口内，触发动画
+        function checkVisibility() {
+            const elements = document.querySelectorAll('.fade-in, .slide-in, .scale-in');
+            elements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                
+                if (elementTop < windowHeight - 100) {
+                    element.classList.add('visible');
+                }
+            });
+        }
+        
+        // 数字计数器动画
+        function animateCounter(counterElement, targetNumber, duration = 2000) {
+            let startNumber = 0;
+            const increment = targetNumber / (duration / 16);
+            const timer = setInterval(() => {
+                startNumber += increment;
+                if (startNumber >= targetNumber) {
+                    counterElement.textContent = targetNumber.toLocaleString();
+                    clearInterval(timer);
+                } else {
+                    counterElement.textContent = Math.floor(startNumber).toLocaleString();
+                }
+            }, 16);
+        }
+        
+        // 初始化计数器动画
+        function initCounterAnimations() {
+            const counters = document.querySelectorAll('.counter');
+            counters.forEach(counter => {
+                const target = parseInt(counter.textContent);
+                const counterSection = document.querySelector('.counter-section');
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            animateCounter(counter, target);
+                            observer.unobserve(counterSection);
+                        }
+                    });
+                }, { threshold: 0.5 });
+                
+                observer.observe(counterSection);
+            });
+        }
+        
+        // 图片加载效果
+        function addImageLoadingEffects() {
+            const images = document.querySelectorAll('img');
+            images.forEach(img => {
+                // 设置加载占位
+                img.style.opacity = '0';
+                img.style.transition = 'opacity 0.5s ease';
+                
+                img.addEventListener('load', () => {
+                    img.style.opacity = '1';
+                });
+                
+                // 如果图片已经加载完成
+                if (img.complete) {
+                    img.style.opacity = '1';
+                }
+                
+                // 图片加载失败处理
+                img.addEventListener('error', () => {
+                    img.src = 'data:image/svg+xml;charset=UTF-8,%3csvg xmlns%3d%22http%3a%2f%2fwww.w3.org%2f2000%2fsvg%22 width%3d%22800%22 height%3d%22400%22 viewBox%3d%220 0 800 400%22 preserveAspectRatio%3d%22none%22%3e%3cdefs%3e%3cstyle type%3d%22text%2fcss%22%3e%23holder_15ba800aa1d text%20%7b fill%3a%23999%3bfont-weight%3anormal%3bfont-family%3aHelvetica%2c%20monospace%3bfont-size%3a40pt %7d %3c%2fstyle%3e%3c%2fdefs%3e%3cg id%3d%22holder_15ba800aa1d%22%3e%3crect width%3d%22800%22 height%3d%22400%22 fill%3d%22%23eee%22%3e%3c%2frect%3e%3cg%3e%3ctext x%3d%22247%22 y%3d%22218.3%22%3e图片加载失败%3c%2ftext%3e%3c%2fg%3e%3c%2fg%3e%3c%2fsvg%3e';
+                    img.style.opacity = '1';
+                });
+            });
+        }
+        
+        // 页面完全加载后初始化动画和效果
+        document.addEventListener('DOMContentLoaded', function() {
+            initCounterAnimations();
+            addImageLoadingEffects();
+            
+            // 添加导航栏项的悬停效果
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => {
+                link.addEventListener('mouseenter', function() {
+                    this.classList.add('nav-link-hover');
+                });
+                link.addEventListener('mouseleave', function() {
+                    this.classList.remove('nav-link-hover');
+                });
+            });
+        });
+    </script>
+</body>
+</html>
